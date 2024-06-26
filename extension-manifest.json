@@ -1,0 +1,13 @@
+{
+  "name": "Create Audience Variations",
+  "id": "create-audience-variations",
+  "description": "description",
+  "version": "0.0.1",
+  "headerMenuButtons": [
+    {
+      "label": "Create Audience Variations",
+      "needsModal": true,
+      "id": "create-audience-variations"
+    }
+  ]
+}

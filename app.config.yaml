@@ -1,0 +1,26 @@
+extensions:
+  aem/cf-editor/1:
+    $include: src/aem-cf-editor-1/ext.config.yaml
+    runtimeManifest:
+      packages:
+        project10:
+          license: Apache-2.0
+          actions:
+            fetch-audiences:
+              function: src/aem-cf-editor-1/actions/fetch-audiences/index.js
+              web: 'yes'
+              runtime: nodejs:18
+              inputs:
+                LOG_LEVEL: debug
+              annotations:
+                require-adobe-auth: true
+                final: true
+            create-variations:
+              function: src/aem-cf-editor-1/actions/create-variations/index.js
+              web: 'yes'
+              runtime: nodejs:18
+              inputs:
+                LOG_LEVEL: debug
+              annotations:
+                require-adobe-auth: true
+                final: true
