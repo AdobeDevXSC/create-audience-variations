@@ -17,13 +17,10 @@ async function ExtensionRegistration() {
               id: 'create-audience-variations',
               label: 'Create Audience Variations',
               icon: 'OpenIn',
-              variant: 'action',
-              disabled: 'yes',
               onClick() {
                 guestConnection.host.modal.showUrl({
                   title: 'Create Variations from Audiences',
-                  url: 'index.html#/audiences',
-                  loading: true
+                  url: 'index.html#/audiences'
                 });
               },
             },
