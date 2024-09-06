@@ -19,24 +19,37 @@ const { Core } = require('@adobe/aio-sdk')
 const { errorResponse, getBearerToken, stringParameters, checkMissingRequestInputs } = require('../utils')
 
 async function main(params) {
-    const aud = ['one', 'two'];
+  const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' })
 
-    const elements = {
-      "properties": {
-        "elements": {
-          "audiences": {
-            "value": Object.values(aud)
-          }
+  try {
+    logger.info('Calling the main action');
+
+    const requiredParams = [];
+    const requiredHeaders = ['Authorization'];
+    const errorMessage = checkMissingRequestInputs(params, requiredParams, requiredHeaders);
+
+    if (errorMessage) return errorResponse(400, 'oops ' + errorMessage, logger);
+
+
+    // const token = getBearerToken(params);
+
+    const content = {
+      "data": {
+        "audienceConfigurationList": {
+          "items": [{
+            "audiences": ["Necklace", "Ring", "Other"]
+          }]
         }
       }
-    };
+    }
+
 
     const response = {
       statusCode: 200,
       body: content
     };
-  
-  try {
+
+
     logger.info(`${response.statusCode}: successful request`)
     return response
   } catch (error) {
