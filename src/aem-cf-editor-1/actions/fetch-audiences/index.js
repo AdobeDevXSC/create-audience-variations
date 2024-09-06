@@ -19,36 +19,7 @@ const { Core } = require('@adobe/aio-sdk')
 const { errorResponse, getBearerToken, stringParameters, checkMissingRequestInputs } = require('../utils')
 
 async function main(params) {
-  const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' })
-
-  try {
-    logger.info('Calling the main action');
-
-    const requiredParams = ['tenet', 'apiKey'];
-    const requiredHeaders = ['Authorization'];
-    const errorMessage = checkMissingRequestInputs(params, requiredParams, requiredHeaders);
-
-    if (errorMessage) return errorResponse(400, 'oops ' + errorMessage, logger);
-
-    const { tenet, apiKey } = params;
-    const token = getBearerToken(params);
-
-    const targetApi = `https://mc.adobe.io/${tenet}/target/audiences/`;
-    const t = await fetch(targetApi, {
-      method: 'get',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.adobe.target.v3+json',
-        'x-api-key': apiKey
-      }
-    });
-    content = await t.json();
-
-    const aud = content.audiences.reduce((accumulator, item, index) => {
-      if (item.name) { accumulator[index] = item.name }
-      return accumulator;
-    });
+    const aud = ['one', 'two'];
 
     const elements = {
       "properties": {
@@ -64,7 +35,8 @@ async function main(params) {
       statusCode: 200,
       body: content
     };
-
+  
+  try {
     logger.info(`${response.statusCode}: successful request`)
     return response
   } catch (error) {

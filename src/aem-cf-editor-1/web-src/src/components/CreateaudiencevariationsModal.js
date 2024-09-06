@@ -114,22 +114,18 @@ export default function () {
   }
 
   async function fetchAudiences(conn) {
-    console.log('fetch audiences');
-    const headers = {
-      'Authorization': 'Bearer ' + conn.sharedContext.get('auth').imsToken,
-      'x-gw-ims-org-id': conn.sharedContext.get('auth').imsOrg
-    };
-
-    const params = {
-      tenet: tenet,
-      apiKey: apiKey
-    };
-
     const action = 'fetch-audiences';
 
     try {
-      console.log(allActions[action]);
-      const actionResponse = await actionWebInvoke(allActions[action], headers, params);
+      
+      const headers = {
+        'Authorization': 'Bearer ' + conn.sharedContext.get('auth').imsToken,
+        'x-gw-ims-org-id': conn.sharedContext.get('auth').imsOrg
+      };
+
+      console.log(headers);
+
+      const actionResponse = await actionWebInvoke(allActions[action], headers);
 
       if (actionResponse.hasOwnProperty('data')) {
         let n = 0;
